@@ -129,7 +129,9 @@ process SENTIEON_ALGORITHM {
 
     script:
     """
-    export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+    # export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+    # echo \$SENTIEON_LICENSE
+    export SENTIEON_LICENSE=${params.sentieon_license}
     echo \$SENTIEON_LICENSE
     
     if [[ ${genome} =~ .*GRCh3* ]];
