@@ -26,12 +26,14 @@ process SENTIEON_DRIVER_METRICS {
     if (mode == 'exome') {
         """
         set +u
-        if [ \$LOCAL != "true" ]; then
-            . /opt/sentieon/cloud_auth.sh no-op
-        else
-            export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-            echo \$SENTIEON_LICENSE
-        fi
+        # if [ \$LOCAL != "true" ]; then
+        #     . /opt/sentieon/cloud_auth.sh no-op
+        # else
+        #     export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+        #     echo \$SENTIEON_LICENSE
+        # fi
+        export SENTIEON_LICENSE=${params.sentieon_license}
+        echo \$SENTIEON_LICENSE
     
     
         sentieon driver  -t $task.cpus -r ${fasta_ref}/genome.fa -i ${bam} ${bqsr} \
