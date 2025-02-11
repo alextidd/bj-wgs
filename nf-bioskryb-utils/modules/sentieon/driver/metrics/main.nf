@@ -26,16 +26,13 @@ process SENTIEON_DRIVER_METRICS {
     if (mode == 'exome') {
         """
         set +u
-        # if [ \$LOCAL != "true" ]; then
-        #     . /opt/sentieon/cloud_auth.sh no-op
-        # else
-        #     export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-        #     echo \$SENTIEON_LICENSE
-        # fi
-        export SENTIEON_LICENSE=${params.sentieon_license}
-        echo \$SENTIEON_LICENSE
-    
-    
+        if [ \$LOCAL != "true" ]; then
+            . /opt/sentieon/cloud_auth.sh no-op
+        else
+            export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+            echo \$SENTIEON_LICENSE
+        fi
+        
         sentieon driver  -t $task.cpus -r ${fasta_ref}/genome.fa -i ${bam} ${bqsr} \
                 --interval ${wgs_or_target_intervals} \
                 --algo GCBias --summary ${sample_name}.gcbias_summary.sentieonmetrics.txt ${sample_name}.gcbias.sentieonmetrics.txt \
@@ -56,14 +53,12 @@ process SENTIEON_DRIVER_METRICS {
     } else if (mode == 'wgs') {
         """
         set +u
-        # if [ \$LOCAL != "true" ]; then
-        #     . /opt/sentieon/cloud_auth.sh no-op
-        # else
-        #     export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-        #     echo \$SENTIEON_LICENSE
-        # fi
-        export SENTIEON_LICENSE=${params.sentieon_license}
-        echo \$SENTIEON_LICENSE
+        if [ \$LOCAL != "true" ]; then
+            . /opt/sentieon/cloud_auth.sh no-op
+        else
+            export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+            echo \$SENTIEON_LICENSE
+        fi
         echo "${bqsr}"
         echo "${recal_table_file.name}"
         
@@ -91,15 +86,12 @@ process SENTIEON_DRIVER_METRICS {
         
         """
         set +u
-        
-        # if [ \$LOCAL != "true" ]; then
-        #     . /opt/sentieon/cloud_auth.sh no-op
-        # else
-        #     export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-        #     echo \$SENTIEON_LICENSE
-        # fi
-        export SENTIEON_LICENSE=${params.sentieon_license}
-        echo \$SENTIEON_LICENSE
+        if [ \$LOCAL != "true" ]; then
+            . /opt/sentieon/cloud_auth.sh no-op
+        else
+            export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+            echo \$SENTIEON_LICENSE
+        fi
         
         sentieon driver  -t $task.cpus -r ${fasta_ref}/genome.fa -i ${bam} \
                --interval ${base_metrics_intervals} \

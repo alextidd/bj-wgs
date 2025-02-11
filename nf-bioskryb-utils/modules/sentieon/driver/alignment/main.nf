@@ -44,14 +44,12 @@ process SENTIEON_ALIGNMENT {
     #export LD_PRELOAD=/usr/lib/petalink.so
 
     set +u
-    # if [ \$LOCAL != "true" ]; then
-    #     . /opt/sentieon/cloud_auth.sh no-op
-    # else
-    #     export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-    #     echo \$SENTIEON_LICENSE
-    # fi
-    export SENTIEON_LICENSE=${params.sentieon_license}
-    echo \$SENTIEON_LICENSE
+    if [ \$LOCAL != "true" ]; then
+        . /opt/sentieon/cloud_auth.sh no-op
+    else
+        export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
+        echo \$SENTIEON_LICENSE
+    fi
     
     export bwt_max_mem=${task.memory.toGiga()}G
  
@@ -129,9 +127,7 @@ process SENTIEON_ALGORITHM {
 
     script:
     """
-    # export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-    # echo \$SENTIEON_LICENSE
-    export SENTIEON_LICENSE=${params.sentieon_license}
+    export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
     echo \$SENTIEON_LICENSE
     
     if [[ ${genome} =~ .*GRCh3* ]];

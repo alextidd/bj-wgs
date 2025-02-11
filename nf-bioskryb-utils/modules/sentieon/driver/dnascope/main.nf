@@ -32,10 +32,7 @@ process SENTIEON_DNASCOPE {
 
     """
     set +u
-    
-    # export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
-    # echo \$SENTIEON_LICENSE
-    export SENTIEON_LICENSE=${params.sentieon_license}
+    export SENTIEON_LICENSE=\$SENTIEON_LICENSE_SERVER
     echo \$SENTIEON_LICENSE
     
     sentieon driver \
