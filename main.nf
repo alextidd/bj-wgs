@@ -42,6 +42,7 @@ workflow {
         }    
         
         ch_reads.ifEmpty{ exit 1, "ERROR: Input csv file is empty." }
+        ch_input_csv = file( params.input_csv )
     }
     
     // ch_reads.view()
@@ -50,7 +51,7 @@ workflow {
 
     
     WGS_WF( 
-                params.input_csv,
+                ch_input_csv,
                 ch_reads,
                 ch_dummy_file,
                 params.min_reads
